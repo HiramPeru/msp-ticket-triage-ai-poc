@@ -2,46 +2,52 @@
 
 ## Executive Summary
 
-MSP Ticket Triage AI PoC is a small public TypeScript project that demonstrates how a managed service provider can apply deterministic automation to incoming support tickets. The proof of concept classifies tickets, recommends priority, estimates SLA risk, generates a concise summary, and suggests the next operational action without relying on external APIs or paid AI services.
+MSP Ticket Triage AI PoC is a public TypeScript project that demonstrates deterministic ticket triage for managed service providers. The repository now includes both a CLI proof of concept and a lightweight React web demo, with both entrypoints reusing the same shared triage logic from `src/`.
+
+Live demo: TBD
 
 ## Business Problem
 
-MSP teams often receive a mix of infrastructure, security, collaboration, backup, and access-related requests. Manual triage can slow down response times, create inconsistent prioritization, and increase SLA breach risk when urgent tickets are buried in the queue.
+MSP teams receive a mix of infrastructure, security, collaboration, backup, and access-related requests. Manual triage can slow down response times, create inconsistent prioritization, and increase SLA breach risk when urgent tickets are buried in the queue.
 
 ## What The PoC Does
 
 - Processes sanitized sample tickets from a local TypeScript dataset
 - Classifies tickets into common MSP support domains
-- Estimates operational priority using simple rules
+- Estimates operational priority using deterministic rules
 - Flags likely SLA risk
-- Produces a short deterministic summary
-- Recommends the next action for a service desk or escalation team
-
-## Why It Matters For MSP Operations
-
-This PoC shows how lightweight automation can improve consistency at the intake stage, help service coordinators route work faster, and support SLA-oriented service delivery before a full AI-enabled workflow is introduced.
+- Produces a concise summary
+- Recommends the next operational action for routing or escalation
 
 ## Technical Stack
 
 - TypeScript
 - Node.js
+- React
+- Vite
 - Deterministic rule-based logic
 - Mermaid for architecture and roadmap diagrams
 
-## How To Install
+## Shared Logic
+
+The CLI and web demo both import the same triage engine from `src/`. There is no backend, no database, no authentication layer, no API keys, and no external AI or LLM calls in this version.
+
+## Install
 
 ```bash
 npm install
 ```
 
-## How To Run
+## CLI Demo
+
+Build and run the original CLI workflow:
 
 ```bash
 npm run build
 npm start
 ```
 
-## Example Output
+Example output:
 
 ```text
 ================================================================================
@@ -50,33 +56,75 @@ Title: Office internet outage affecting support floor
 Category: networking
 Priority: critical
 SLA Risk: high
-Summary: Network outage impacting 42 users with high business impact.
+Summary: Networking incident impacting 42 users with high business impact.
 Suggested Next Action: Open a P1 incident bridge, confirm ISP or firewall status, and assign a network engineer immediately.
 ================================================================================
 ```
 
+## Web Demo
+
+Start the Vite development server:
+
+```bash
+npm run web:dev
+```
+
+Create a production web build:
+
+```bash
+npm run web:build
+```
+
+Preview the built site locally:
+
+```bash
+npm run web:preview
+```
+
+The web UI includes:
+
+- Project title and short description
+- Sample ticket selector
+- Manual triage trigger
+- Result cards for category, priority, SLA risk, summary, and suggested next action
+- A short explanation of the deterministic v1 scope and AI-ready roadmap
+
+## Production Deployment
+
+This repository can be deployed to Vercel as a static Vite site.
+
+- Build command: `npm run web:build`
+- Output directory: `web/dist`
+- Environment variables: none required
+
+Detailed instructions:
+
+- [Production demo deployment guide](docs/production-demo.md)
+
 ## Architecture Summary
 
-The project uses a modular CLI architecture. Sample tickets flow through a classifier, a priority engine, an SLA risk evaluator embedded in the triage step, a deterministic summarizer, and an action recommender. The formatted output is then printed to the terminal for quick review.
+Sample tickets flow through a classifier, priority engine, SLA risk evaluator, deterministic summarizer, and action recommender. The CLI formats results for terminal output, while the web demo renders the same underlying triage results in a static React UI.
 
 See:
 
 - [Architecture](docs/architecture.md)
 - [Demo Flow](docs/demo-flow.md)
 - [AI Roadmap](docs/ai-roadmap.md)
+- [Production Demo](docs/production-demo.md)
 - [Service Model](docs/service-model.md)
 
 ## Limitations
 
-- Uses rules and keywords instead of natural language understanding
+- Uses deterministic rules and keyword matching instead of natural language understanding
 - Processes only local sample tickets
 - Does not integrate with a live ticketing platform
 - Does not store historical data
 - Does not learn from analyst feedback
+- Does not make fake production claims about live AI behavior
 
 ## AI/LLM Roadmap
 
-Future phases could add provider abstractions for ChatGPT, Claude, OpenRouter, local models, and MCP-enabled tooling. Those integrations are intentionally out of scope for this first version and are documented as roadmap items only.
+Future phases could add provider abstractions for ChatGPT, Claude, OpenRouter, local models, and MCP-enabled tooling. Those integrations remain out of scope for this version and are documented as roadmap items only.
 
 ## Public Repository Sanitization Notice
 
