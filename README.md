@@ -4,7 +4,7 @@
 
 MSP Ticket Triage AI PoC is a public TypeScript project that demonstrates deterministic ticket triage for managed service providers. The repository now includes both a CLI proof of concept and a lightweight React web demo, with both entrypoints reusing the same shared triage logic from `src/`.
 
-Live demo: TBD
+Live demo: https://msp-ticket-triage-ai-poc-rho.vercel.app
 
 ## Business Problem
 
