@@ -1,0 +1,25 @@
+{
+  "name": "msp-ticket-triage-ai-poc",
+  "version": "1.0.0",
+  "description": "Deterministic TypeScript proof of concept for MSP ticket triage.",
+  "private": false,
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js"
+  },
+  "keywords": [
+    "typescript",
+    "msp",
+    "ticket-triage",
+    "incident-management",
+    "sla",
+    "automation"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
