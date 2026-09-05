@@ -32,6 +32,22 @@ MSP teams receive a mix of infrastructure, security, collaboration, backup, and 
 
 The CLI and web demo both import the same triage engine from `src/`. There is no backend, no database, no authentication layer, no API keys, and no external AI or LLM calls in this version.
 
+## My Role / Contribution
+
+I implemented the TypeScript proof of concept and its shared CLI/web workflow, with deterministic classification, prioritization, SLA risk rules and next-action recommendations. The [triage orchestrator](src/triageTicket.ts), [CLI](src/index.ts), and [web source](web/src) expose the implementation for review.
+
+## Evidence / Outcomes
+
+- [Sample tickets](src/sampleTickets.ts) provide fictional inputs for a reproducible walkthrough.
+- [Shared library](src/lib.ts) exposes the engine reused by both interfaces.
+- The [live demo](https://msp-ticket-triage-ai-poc-rho.vercel.app) makes sample triage inspectable without credentials.
+
+The result is a runnable demonstration, not a benchmark of triage accuracy, a measured SLA improvement, or a production AI service. The [AI roadmap](docs/ai-roadmap.md) remains future scope.
+
+## Engineering Decisions
+
+Sharing one deterministic engine keeps CLI and web behavior consistent and explainable. Local sample data and a static web build avoid backend provisioning and external model dependencies for portfolio review.
+
 ## Install
 
 ```bash
