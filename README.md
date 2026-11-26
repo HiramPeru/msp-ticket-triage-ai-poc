@@ -1,5 +1,7 @@
 # MSP Ticket Triage AI PoC
 
+**Project Status:** Runnable TypeScript prototype (shared deterministic triage engine, Node.js CLI, and Vite/React web demo; no external LLM dependencies or backend database).
+
 ## Executive Summary
 
 MSP Ticket Triage AI PoC is a public TypeScript project that demonstrates deterministic ticket triage for managed service providers. The repository now includes both a CLI proof of concept and a lightweight React web demo, with both entrypoints reusing the same shared triage logic from `src/`.
@@ -46,7 +48,9 @@ The result is a runnable demonstration, not a benchmark of triage accuracy, a me
 
 ## Engineering Decisions
 
-Sharing one deterministic engine keeps CLI and web behavior consistent and explainable. Local sample data and a static web build avoid backend provisioning and external model dependencies for portfolio review.
+- **Deterministic baseline before LLM integration:** Encoding domain classification, urgency signals, and SLA risk rules deterministically establishes an explainable, zero-latency baseline before introducing probabilistic LLM routing.
+- **Single shared triage engine (`src/`):** Both the Node.js CLI and the React web UI import the same TypeScript modules (`classifyTicket`, `prioritizeTicket`, `suggestAction`, `summarizeTicket`, `triageTicket`), preventing behavioral drift between terminal and browser demonstrations.
+- **Zero-credential static review:** Fictional local sample data and a static Vite web build allow technical reviewers and prospective stakeholders to inspect the workflow without provisioning API keys or database infrastructure.
 
 ## Install
 
